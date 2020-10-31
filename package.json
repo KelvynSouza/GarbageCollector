@@ -21,6 +21,7 @@
     "mongodb": "^3.6.2"
   },
   "devDependencies": {
+    "eslint-plugin-react-hooks": "^4.1.2",
     "nodemon": "^2.0.4"
   }
 }

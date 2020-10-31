@@ -1,4 +1,4 @@
-import dbconnection from "../dbconnection.js";
+import dbconnection from "../dbConnection.js";
 import * as mongodb from "mongodb";
 
 const ObjectId = mongodb.default.ObjectID;
@@ -47,6 +47,18 @@ class pricesRepository {
     return new Promise((resolve, reject) => {
       this.open().then((db) => {
         db.find(query).toArray((err, result) => {
+          if (err) throw err;
+          dbconnection.close();
+          resolve(result);
+        });
+      }).catch((err)=>{reject(err)});
+    });
+  }
+
+  getByName(item) {
+    return new Promise((resolve, reject) => {
+      this.open().then((db) => {
+        db.findOne({item}, (err, result) => {
           if (err) throw err;
           dbconnection.close();
           resolve(result);

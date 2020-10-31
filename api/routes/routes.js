@@ -22,6 +22,7 @@ app.get("/authenticate/:User", (req, res, next) => {
     res.header("x-auth-token", token).status(201).send({
       user: req.body.user,
       result: "User Found!",
+      _id: result._id
     });
   })
     .catch((err) => next(err));

@@ -1,4 +1,4 @@
-import dbconnection from "../dbconnection.js";
+import dbconnection from "../dbConnection.js";
 import * as mongodb from "mongodb";
 
 const ObjectId = mongodb.default.ObjectID;
@@ -85,8 +85,22 @@ class collectionRepository {
       this.open().then((db) => {
         var query = { _id: ObjectId(userdata._id) };
         delete userdata._id;
-        var newValues = { $set: userdata };
-        db.updateOne(query, newValues, (err, result) => {
+
+        var newValues = 
+        {
+          $set:{
+          user:userdata.user          
+          },
+          $inc:{            
+            'collected_garbage.glass':userdata.collected_garbage.glass,
+            'collected_garbage.plastic':userdata.collected_garbage.plastic,
+            'collected_garbage.metal':userdata.collected_garbage.metal,
+            'collected_garbage.paper':userdata.collected_garbage.paper
+              
+          }
+        }
+        
+        db.findOneAndUpdate(query, newValues, (err, result) => {
           if (err) throw err;
           console.log("Registro atualizado da base!");
           dbconnection.close();

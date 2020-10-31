@@ -1,0 +1,11 @@
+
+image: node:10.15.3
+
+pipelines:  
+  branches:
+    master:
+      - parallel:
+        - step:
+            script:
+               - git push https://heroku:$heroku_token@git.heroku.com/$herokuapp_name.git HEAD
+                

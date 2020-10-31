@@ -86,6 +86,7 @@ router.post("/user", celebrate(postUserValidator), (req, res, next) => {
       res.header("x-auth-token", token).status(201).send({
         user: req.body.user,
         result: "Successfully registered!",
+        _id: result.insertedId
       });
     })
     .catch((err) => next(err));
